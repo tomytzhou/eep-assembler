@@ -23,8 +23,8 @@ def findval(x):
 
 def find_twos_compl(x, l):
     if x[0] == '-':
-        x = bin((~ findval(x[1:])) - 1)[3:]
-        return int((l-len(x))*(x[0]) + x, 2)
+        x = findval(x[1:]) ^ int('1'*l, 2)
+        return x + 1
     else:
         return findval(x)
 
