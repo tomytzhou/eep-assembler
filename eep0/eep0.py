@@ -26,6 +26,13 @@ def findval(x):
     else:
         return int(x)
 
+def find_twos_compl(x):
+    if x[0] == '-':
+        x = findval(x[1:]) ^ 255
+        return x + 1
+    else:
+        return findval(x)
+
 
 f = open('assembly.txt', 'r')
 a = []
@@ -45,13 +52,13 @@ for j in a:
         rs = R[j[1]] * 0x4
         if j[2][0] != 'R':
             opc += 0x1
-            imm = findval(j[2])
+            imm = find_twos_compl(j[2])
         else:
             rs += R[j[2]]
             imm = 0x0
     else:
         rs = 0x0
-        imm = findval(j[1])
+        imm = find_twos_compl(j[1])
     i = opc * 0x1000 + rs * 0x100 + imm
     print(hex(pc), hex(i))
     f.write(hex(pc))
