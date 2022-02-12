@@ -13,7 +13,8 @@ These python scripts can convert assembly mneumonics into machine code in a .ram
 ## Version History
 
 ### v1.1
-* Now supports the entire EEP1 instruction set. 
-* Added some basic error detection.
+* Now supports the entire EEP1 instruction set
+* Added some basic error detection
+* Support for bracketed addresses and 0 as an unused line
 ### v1.0
-* The EEP1 assembler currently only supports the EEP0 instruction set. 
+* The EEP1 assembler currently only supports the EEP0 instruction set
