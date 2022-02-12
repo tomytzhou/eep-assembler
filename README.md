@@ -10,5 +10,10 @@ These python scripts can convert assembly mneumonics into machine code in a .ram
 3. In ISSIE create a new ROM, hover over 'Enter data later' and select 'assembly.ram'
 4. Delete the old ROM and connect the new ROM.
 
-## Notes
-The EEP1 assembler currently only supports the EEP0 instruction set. 
+## Version History
+
+### v1.1
+* Now supports the entire EEP1 instruction set. 
+* Added some basic error detection.
+### v1.0
+* The EEP1 assembler currently only supports the EEP0 instruction set. 
