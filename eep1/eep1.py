@@ -45,7 +45,7 @@ def assemble(j):
             a = int(j[1][1]) * 0x2
         else:
             return -2
-        j[2] = j[2].strip('#[]')
+        j[2] = j[2].strip('[]')
         if j[2][0] != 'R':
             a += 0x1
             if -128 < findval(j[2]) < 255:
@@ -55,7 +55,7 @@ def assemble(j):
         else:
             if len(j) == 3:
                 j.append('0')
-            j[3] = j[3].strip('#]')
+            j[3] = j[3].strip(']')
             if -16 < findval(j[3]) < 15:
                 if rcheck(j[2]):
                     imm = int(j[2][1]) * 0x20 + (find_twos_compl(j[3], 5))
@@ -106,7 +106,7 @@ for line in f:
     al = []
     line = line.replace(',', ' ')
     for i in line.split()[:4]:
-        al.append(i)
+        al.append(i.strip('#'))
     a.append(al)
 f.close()
 
