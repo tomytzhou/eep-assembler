@@ -12,6 +12,17 @@ These python scripts can convert assembly mneumonics into machine code in a .ram
 
 ## Version History
 
+### v1.2
+* Added support for symbolic addresses for jumps (same syntax as the ones in class 5)
+#### Example:
+| Address | Assembly       | Code   |
+| ------- | -------------- | ------ |
+| 0x0     | Start: JMP END | 0xc007 |
+| ...     | ...            |  ...   |
+| 0x7     | END: JNE Start | 0xc200 |
+* Minor bug fixes
+
+
 ### v1.1
 * Now supports the entire EEP1 instruction set
 * Added some basic error detection
