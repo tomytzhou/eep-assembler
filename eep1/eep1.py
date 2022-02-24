@@ -65,8 +65,8 @@ def assemble(j):
                 return -5
         return opc * 0x1000 + a * 0x100 + imm
     else:
-        imm = findval(j[1])
-        if 0 < imm < 255:
+        imm = addr[j[1]] if j[1] in addr else findval(j[1])
+        if 0 <= imm < 255:
             return opc * 0x100 + imm
         else:
             return -2
@@ -102,12 +102,19 @@ def erreport(i, pc):
 
 f = open('assembly.txt', 'r')
 a = []
+global addr
+addr = {}
+pc = 0
 for line in f:
     al = []
     line = line.replace(',', ' ')
-    for i in line.split()[:4]:
-        al.append(i.strip('#'))
+    for i in line.split():
+        if i[-1] == ':':
+            addr[i[:-1]] = pc
+        elif i[0] != '/':
+            al.append(i.strip('#'))
     a.append(al)
+    pc += 1
 f.close()
 
 f = open('assembly.ram', 'w')
