@@ -33,7 +33,7 @@ def rcheck(r):
         return False
 
 def assemble(j):
-    if j == '0':
+    if j[0] == '0':
         return 0
     if j[0] not in OPS:
         return -1
