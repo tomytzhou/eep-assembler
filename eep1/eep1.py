@@ -1,10 +1,19 @@
-OPS = {
+OPCALU = {
     'MOV': 0x0,
     'ADD': 0x1,
     'SUB': 0x2,
     'ADC': 0x3,
     'LDR': 0x8,
     'STR': 0xA,
+    'SBC': 0X4,
+    'AND': 0x5,
+    'XOR': 0x6,
+    'CMP': 0xD,
+    'RSB': 0xE,
+    'ORR': 0xF,
+}
+
+OPCJMP = {
     'JMP': 0xC0,
     'JNE': 0xC2,
     'JCS': 0xC4,
@@ -19,11 +28,14 @@ OPS = {
     'JHI': 0xCC,
     'JLS': 0xCD,
     'JSR': 0xCE,
-    'RET': 0xCF,
-    'SBC': 0X4,
-    'AND': 0x5,
-    'XOR': 0x6,
-    'LSL': 0x7,
+}
+
+OPCSFT = {
+    'LSR': 0x0,
+    'ASR': 0x1,
+    'LSL': 0x2,
+    'ROR': 0x3,
+    'RRX': 0x20,
 }
 
 def rcheck(r):
@@ -35,12 +47,10 @@ def rcheck(r):
 def assemble(j):
     if j[0] == '0':
         return 0
-    if j[0] not in OPS:
-        return -1
-    opc = OPS[j[0]]
     if j[0] == 'RET':
-        return opc << 8
-    elif j[0][0] != 'J':
+        return 0xCF00
+    if j[0] in OPCALU or OPCSFT:
+        opc = OPCALU[j[0]] if j[0] in OPCALU else 7
         if rcheck(j[1]):
             a = int(j[1][1]) * 0x2
         else:
@@ -63,13 +73,16 @@ def assemble(j):
                     return -4
             else:
                 return -5
-        return opc * 0x1000 + a * 0x100 + imm
-    else:
+        return opc * 0x1000 + a * 0x100 + imm + (OPCSFT[j[0]] << 3 if j[0] in OPCSFT else 0)
+    elif j[0] in OPCJMP:
+        opc = OPCJMP[j[0]]
         imm = addr[j[1]] if j[1] in addr else findval(j[1])
         if 0 <= imm < 255:
             return opc * 0x100 + imm
         else:
             return -2
+    else:
+        return -1
 
 def findval(x):
     if x[0:2] == '0b':
@@ -125,7 +138,7 @@ for j in a:
     if i < 0:
         erreport(i, pc)
     else:
-        print(hex(pc), hex(i))
+        print(hex(pc), hex(i), j)
         l = hex(pc) + ' ' + hex(i) + '\n'
         f.write(l)
     pc += 1
