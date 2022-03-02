@@ -12,6 +12,10 @@ These python scripts can convert assembly mneumonics into machine code in a .ram
 
 ## Version History
 
+### v1.3
+* Corrected the machine code for LSR
+* Support for CMP and RSB, ORR, ASR, LSL, ROR, RRX (Not available in standard EEP1 ISA, for my own modified EEP1 only)
+
 ### v1.2
 * Added support for symbolic addresses for jumps (same syntax as the ones in class 5)
 #### Example:
