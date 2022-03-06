@@ -67,6 +67,8 @@ def assemble(j, BA):
             a += 0x1
             if j[2] in addr:
                 imm = addr[j[2]]
+                if BA:
+                    imm *= 2
             elif -128 <= findval(j[2]) <= 255:
                 imm = find_twos_compl(j[2], 8)
             else:
@@ -153,7 +155,7 @@ f.close()
 
 f = open('assembly.ram', 'w')
 
-BYTE_ADDRESSING = False #Change bool to True for byte addressing challenge
+BYTE_ADDRESSING = True #Change bool to True for byte addressing challenge
 
 pc = 0
 for j in a:
