@@ -12,9 +12,16 @@ These python scripts can convert assembly mneumonics into machine code in a .ram
 
 ## Version History
 
+### v2.0
+* Assembler for EEP2
+* Togglable between normal and byte addressing mode. (This is mainly for error report purposes)
+* Support for CMP, SWP and LDRB, STRB (byte addressing mode)
+* Support ORR, ASR, LSL, ROR, RRX (Not available in standard EEP2 ISA, for my own modified EEP2 only)
+
 ### v1.3
 * Corrected the machine code for LSR
-* Support for CMP and RSB, ORR, ASR, LSL, ROR, RRX (Not available in standard EEP1 ISA, for my own modified EEP1 only)
+* Support for CMP
+* Support for RSB, ORR, ASR, LSL, ROR, RRX (Not available in standard EEP1 ISA, for my own modified EEP1 only)
 
 ### v1.2
 * Added support for symbolic addresses for jumps (same syntax as the ones in class 5)
