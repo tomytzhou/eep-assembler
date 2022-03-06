@@ -77,7 +77,7 @@ def assemble(j):
     elif j[0] in OPCJMP:
         opc = OPCJMP[j[0]]
         imm = addr[j[1]] if j[1] in addr else findval(j[1])
-        if 0 <= imm < 255:
+        if 0 <= imm <= 255:
             return opc * 0x100 + imm
         else:
             return -2
@@ -85,6 +85,7 @@ def assemble(j):
         return -1
 
 def findval(x):
+    x=x.strip('#')
     if x[0:2] == '0b':
         return int(x[2:], 2)
     elif x[0:2] == '0x':
@@ -94,6 +95,7 @@ def findval(x):
 
 
 def find_twos_compl(x, l):
+    x=x.strip('#')
     if x[0] == '-':
         x = findval(x[1:]) ^ int('1'*l, 2)
         return x + 1
@@ -125,8 +127,10 @@ for line in f:
     for i in line.split():
         if i[-1] == ':':
             addr[i[:-1]] = pc
-        elif i[0] != '/':
-            al.append(i.strip('#'))
+        elif i[0] == '/':
+            break
+        else:
+            al.append(i)
     a.append(al)
     pc += 1
 f.close()
